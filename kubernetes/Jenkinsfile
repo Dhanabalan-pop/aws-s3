@@ -31,6 +31,7 @@ pipeline {
                         // Apply the kubernetes nginx.yaml file
                         echo "Applying Kubernetes YAML: kubernetes/nginx.yaml"
                         bat 'kubectl apply -f kubernetes/nginx.yaml --kubeconfig %KUBECONFIG_FILE%'
+                        bat 'kubectl get pods --kubeconfig %KUBECONFIG_FILE%'
                     }
                 }
             }
