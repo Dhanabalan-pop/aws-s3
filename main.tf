@@ -5,7 +5,7 @@ provider aws {
 
 # S3 bucket creation
 resource "aws_s3_bucket" "test" {
-  bucket = "visionet-sop-dhanabalan"
+  bucket = "visionet-sop-dhanabalan-2"
 
   tags = {
     Name        = "My bucket"

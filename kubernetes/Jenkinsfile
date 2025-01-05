@@ -1,0 +1,39 @@
+pipeline {
+    agent any
+
+    stages {
+        // Stage to check out the repository from GitHub
+                stage('Git checkout') { 
+            steps{
+                //git branch: 'myjenkins', credentialsId: '6558272a-3027-44cb-8bfc-a25b9cab9f45', url: 'https://github.com/Dhanabalan-pop/EKS.git'
+                git branch: 'main', credentialsId: 'github-token', url: 'https://github.com/Dhanabalan-pop/aws-s3.git' 
+        }
+                }
+
+        // Stage to deploy to Kubernetes
+        stage('Deploy to Kubernetes') {
+            steps {
+                withCredentials([file(credentialsId: 'kube', variable: 'KUBECONFIG_FILE')]) {
+                    script {
+                        // Print the path of the kubeconfig file for debugging
+                        echo "Kubeconfig file path: ${env.KUBECONFIG_FILE}"
+
+                        // Use the correct syntax to access the environment variable in bat
+                        bat 'kubectl get pods --kubeconfig %KUBECONFIG_FILE%'
+                    }
+                }
+            }
+        }
+                stage('Apply Kubernetes YAML') {
+            steps {
+                withCredentials([file(credentialsId: 'kube', variable: 'KUBECONFIG_FILE')]) {
+                    script {
+                        // Apply the kubernetes nginx.yaml file
+                        echo "Applying Kubernetes YAML: kubernetes/nginx.yaml"
+                        bat 'kubectl apply -f kubernetes/nginx.yaml --kubeconfig %KUBECONFIG_FILE%'
+                    }
+                }
+            }
+        }
+    }
+}
