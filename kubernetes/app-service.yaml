@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+  namespace: frontend-app
+spec:
+  selector:
+    app: app1
+  ports:
+    - protocol: TCP
+      port: 80           # The port that will be exposed to the outside world
+      targetPort: 80      # The port on the pod (nginx inside the container)
+  type: LoadBalancer     # Expose the service via a LoadBalancer (can be NodePort or ClusterIP based on your needs)
