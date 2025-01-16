@@ -83,3 +83,21 @@ Stack Policy
 }
 
 ```
+
+```
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Deny",
+      "Action": "Update:*",
+      "Resource": "arn:aws:cloudformation:us-east-1:123456789012:stack/MyStack/MyStackID"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "Update:Modify",
+      "Resource": "arn:aws:cloudformation:us-east-1:123456789012:stack/MyStack/MyStackID"
+    }
+  ]
+}
+```
