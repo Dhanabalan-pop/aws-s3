@@ -61,3 +61,25 @@ Resources:
 ```
 
 Ensures that updates to resources are handled properly during stack updates, often used with Auto Scaling groups, EC2 instances, and other resources that need to be updated in a controlled way.
+
+
+Stack Policy
+
+```
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Deny",
+      "Action": "Update:Delete",
+      "Resource": "arn:aws:ec2:us-east-1:123456789012:instance/i-0abcd1234efgh5678"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "Update:*",
+      "Resource": "*"
+    }
+  ]
+}
+
+```
