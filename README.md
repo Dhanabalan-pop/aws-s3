@@ -12,7 +12,20 @@ if you need more fine-grained control over the stack update process and you're c
 Use deploy 
 if you want a simplified command that automates much of the stack creation and update process, making it ideal for CI/CD workflows or simpler deployment scenarios. It is the recommended command in most cases, especially when working with Lambda and other resources that require handling artifacts or packaged template
 CreationPolicy 
+```Resources:
+  MyEC2Instance:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      ImageId: ami-12345678
+      InstanceType: t2.micro
+    CreationPolicy:
+      ResourceSignal:
+        Count: '1'  # Number of signals to wait for
+        Timeout: 'PT15M'  # Timeout duration
+```
+
 Ensures that resources are properly created and initialized before the stack creation completes.
+
 UpdatePolicy
 ```
 Resources:
