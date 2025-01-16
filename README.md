@@ -44,4 +44,20 @@ Resources:
         PauseTime: 'PT5M'  # Wait for 5 minutes before continuing to next batch
 ```
 
+Wait Conditions: 
+
+Pause stack creation or updates until a signal is received, useful for resource initialization.
+```
+Resources:
+  MyWaitHandle:
+    Type: 'AWS::CloudFormation::WaitConditionHandle'
+
+  MyWaitCondition:
+    Type: 'AWS::CloudFormation::WaitCondition'
+    Properties:
+      Handle: !Ref MyWaitHandle
+      Timeout: 'PT10M'
+      Count: 1
+```
+
 Ensures that updates to resources are handled properly during stack updates, often used with Auto Scaling groups, EC2 instances, and other resources that need to be updated in a controlled way.
